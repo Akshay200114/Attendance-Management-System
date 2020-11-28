@@ -1,41 +1,24 @@
-{% extends "qr\layout.html" %}
+{% extends "qr/layout.html" %}
 
 {% block title %}
 Login
 {% endblock %}
 
 {% block body %}
-<div class="pahila">
-    <div class="form-box">
-        <div class="button-box">
-            <div id="btn"></div>
-            <button type="button" class="toggle-btn" onclick="student()">Student</button>
-            <button type="button" class="toggle-btn" onclick="teacher()">Teacher</button>
-            
-        </div>
-        <form id="student" class="input-group">
-            <input type="text" class="input-field" placeholder="Name" required>
-            <input type="number" class="input-field" placeholder="Rollno" required>
-            <input type="number" class="input-field" placeholder="Sem" required>
-            <input type="text" class="input-field" placeholder="Unique Id" required>
-            <input type="text" class="input-field" placeholder="Optional subject" required>
-            <input type="email" class="input-field" placeholder="Mail" >
-            <input type="password" class="input-field" placeholder="Enter Password" required>
-            <input type="checkbox" class="checl-box"><span>Remeber Password</span>
-            <button type="submit" class="submit-btn" value="Submit">Register</button>
-        </form>
-        <form id="teacher" class="input-group">
-            <input type="text" class="input-field" placeholder="Name" required>
-            <input type="number" class="input-field" placeholder="Id" required>
-            <input type="number" class="input-field" placeholder="Sem" required>
-            <input type="text" class="input-field" placeholder="Subject" required>
-            <input type="text" class="input-field" placeholder="Theory/Practical" required>
-            <input type="email" class="input-field" placeholder="Mail" >
-            <input type="password" class="input-field" placeholder="Enter Password" required>
-            <input type="checkbox" class="checl-box"><span>Remeber Password</span>
-            <button type="submit" class="submit-btn">Register</button>
-        </form>
-    </div>
-
-</div>
+<form action="login" method="POST" style="margin: 40px;">
+  {% if msg %}
+  {{ msg }}
+  {% endif %}
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="username" class="form-control" name="username" id="username" aria-describedby="emailHelp">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" minlength="8" maxlength="128" name="password" id="exampleInputPassword1">
+  </div>
+  <small class="form-text text-muted">Not registered?<a href="{% url 'register' %}"> <u> Register </u></a></small>
+  <button type="submit" style="margin-top: 10px;" class="btn btn-primary">Submit</button>
+</form>
 {% endblock %}
