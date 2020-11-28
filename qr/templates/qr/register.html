@@ -1,0 +1,39 @@
+{% extends "qr/layout.html" %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block body %}
+<form action="register" method="POST" style="margin: 40px;">
+  {% csrf_token %}
+  {% if msg %}
+    <div class="alert alert-danger" role="alert">
+      {{ msg }}
+    </div>
+  {% endif %}
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="username" class="form-control" name="username" id="username" aria-describedby="emailHelp">
+  </div>
+ <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" minlength="8" maxlength="128" name="password" id="exampleInputPassword1">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword2">Confirmation Password</label>
+    <input type="password" class="form-control" name="confirmation" id="exampleInputPassword1">
+  </div>
+  <div class="form-group form-check">
+    <input type="checkbox" name="is_teacher" value="1" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Are you a teacher?</label>
+  </div>
+  <small class="form-text text-muted">Already registered?<a href="{% url 'login' %}"> <u>login</u></a></small>
+  <button type="submit" style="margin-top: 10px;" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

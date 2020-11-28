@@ -1,16 +1,25 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.urls import reverse
+from django.db import IntegrityError
 
-
-# Create your views here.
 
 @login_required
 def index(request):
-    return render(request, 'qr\index.html')
+    if request.user.is_teacher:
+        return render(request, 'qr/teacher_index.html')
+    else:
+        return render(request, 'qr/student_index.html')
+
+@login_required
+def get_details(request):
+    if request.method == "POST":
+        pass
+        #create model to save more details
+    return render(request, "qr/more_details.html")
 
 
 def logout_view(request):
@@ -37,9 +46,9 @@ def register(request):
     if request.method == "POST":
         username = request.POST["username"]
         email = request.POST["email"]
-        is_teacher=False
+        is_teacher = False
         if "is_teacher" in request.POST.keys():
-            is_teacher = request.POST["is_teacher"]
+            is_teacher = bool(request.POST["is_teacher"])
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
@@ -50,6 +59,8 @@ def register(request):
             user = User.objects.create_user(username=username, email=email, password=password, is_teacher=is_teacher)
             user.save()
             login(request, user)
+            if not user.is_teacher:
+                return HttpResponseRedirect(reverse("details"))
             return HttpResponseRedirect(reverse("index"))
         except IntegrityError:
             return render(request, "qr/register.html", {
