@@ -10,7 +10,7 @@ from django.db import IntegrityError
 @login_required
 def index(request):
     if request.user.is_teacher:
-        return render(request, 'qr/teacher_index.html')
+        return render(request, 'qr/fac.html')
     else:
         return render(request, 'qr/student_index.html')
 
