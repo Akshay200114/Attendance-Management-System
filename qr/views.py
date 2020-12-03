@@ -5,22 +5,57 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.urls import reverse
 from django.db import IntegrityError
+from qrcode import *
 
 
-@login_required
+@login_required(login_url="/login")
 def index(request):
     if request.user.is_teacher:
         return render(request, 'qr/fac.html')
     else:
         return render(request, 'qr/student_index.html')
 
-@login_required
+@login_required(login_url="/login")
 def get_details(request):
+    user=User.objects.get(username=request.user.username)
     if request.method == "POST":
-        pass
+        name=request.POST['name']
+        roll=request.POST['Roll_no']
+        dept=request.POST['dept']
+        mis=request.POST['mis_no']
+        name_list=[i.name for i in Student.objects.all()]
+        Mis_list=[i.Mis_no for i in Student.objects.all()]
+        if (name in name_list):
+            return render(request,'qr/more_details.html' ,{
+                'msg':"Name exists"
+            })
+        elif mis in Mis_list:
+            return render(request, 'qr/more_details.html',{
+                'msg':"Check your Mis No"
+            })
+        else:
+            student=Student.objects.create(name=name,Roll_no=roll, Dept=dept,Mis_no=mis,user=user)
+            student.save()
+            return HttpResponseRedirect(reverse('index'))
         #create model to save more details
-    return render(request, "qr/more_details.html")
+    else:
+        return render(request, "qr/more_details.html")
 
+
+@login_required(login_url="/login")
+def get_qr(request):
+    user=User.objects.get(username=request.user.username)
+    student=Student.objects.get(user=user)
+    data={'Name':student.name, 'Roll_no': student.Roll_no, "Mis_no": student.Mis_no, 'dept': student.Dept}
+    qr=QRCode(
+        version=3,
+        box_size=10,
+        border=4
+    )
+    make=qr.add_data(data)
+    return render(request,"qr/get_qr.html", {
+        'student': student
+    })
 
 def logout_view(request):
     logout(request)
@@ -32,14 +67,16 @@ def login_view(request):
         username = request.POST["username"] 
         password = request.POST["password"] 
         user = authenticate(username=username, password=password)
-        if user is not None:
+        if user != None:
             login(request, user)
+            print("my name is khan")
             return HttpResponseRedirect(reverse("index"))
         else:
             return render(request, "qr/login.html", {
                 "message": "Invalid username and/or password."
                 })
-    return render(request, "qr/login.html")
+    else:
+        return render(request, "qr/login.html")
 
 
 def register(request):
@@ -56,14 +93,15 @@ def register(request):
                 "message": "Passwords must match."
                 })
         try:
-            user = User.objects.create_user(username=username, email=email, password=password, is_teacher=is_teacher)
+            user = User.objects.create(username=username, email=email, password=password, is_teacher=is_teacher)
             user.save()
             login(request, user)
             if not user.is_teacher:
-                return HttpResponseRedirect(reverse("details"))
+                return render(request, "qr/more_details.html")
             return HttpResponseRedirect(reverse("index"))
         except IntegrityError:
             return render(request, "qr/register.html", {
                 "message": "Username already taken."
                 })
-    return render(request, "qr/register.html")
+    else:
+        return render(request, "qr/register.html")

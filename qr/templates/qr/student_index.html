@@ -2,9 +2,42 @@
 
 
 {% block title %}
-Index
+Student
 {% endblock %}
 
 {% block body%}
-Student Index
+<div class="bg">
+	<div class="card-style">
+		<div class="card-one">
+			<div class="card-header">
+				<img src="/static/qr/images/qrc.PNG" alt="hello" class="img">
+				<h3 style="text-align: center;">GET QR</h3>
+            </div>
+			<div class="card-body">
+				<p>Generates A Unique QR Code </p>
+				<a href="{% url 'get_qr' %}"><button type="submit" value="submit" class="button" >QR</button></a>
+			</div>
+		</div>
+		<div class="card-two">
+			<div class="card-header">
+				<img src="/static/qr/images/getqr.jpeg" alt="hello" class="img">
+				<h3 style="text-align: center;">View</h3>
+			</div>
+			<div class="card-body">
+                <p>View Your Attendance Record </p>
+                <button type="submit" value="submit" class="button">View</button>
+            </div>
+		</div>
+		<div class="card-three">
+            <div class="card-header">            	
+                <img src="/static/qr/images/warn.jpg" alt="hello" class="img">
+            	<h3 style="text-align: center;" >Report Error </h3>
+            </div>
+            <div class="card-body">
+            	<p>Report Attendance Issues Here</p>
+            	<button type="submit" value="submit" class="button">Report</button>
+            </div>
+		</div>
+	</div>
+  </div>
 {% endblock %}

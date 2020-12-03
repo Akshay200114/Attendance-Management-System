@@ -1,0 +1,77 @@
+*{
+	padding: 0;
+	margin: 0;
+    box-sizing: border-box;
+}
+
+.bg{
+    background-color: white;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 20px;
+}
+.card-style{
+	display: flex;
+	height: 100vh;
+	margin: 30px;
+	background-image: url("qrcode.jpg");
+    justify-content: center;
+	align-items: center;
+	background-size: cover;
+	
+
+}
+
+.card-one{
+	border-radius: 20px;
+	background-color: #ffbe7d;
+	opacity: 0.8;
+	
+
+	
+}
+.card-two{
+	border-radius: 20px;
+	background-color: #ffbe7d;
+	opacity: 0.8;
+}
+.card-three{
+	border-radius: 20px;
+	margin-right: 10px;
+	background-color: #ffbe7d;
+	opacity: 0.8;
+	
+	
+}
+
+
+.card-style > div {
+
+	width: 200px;
+	margin: 50px;
+	height: 400px;
+	padding: 10px 0px;
+}
+
+
+.button{
+	position: relative;
+	
+	left: 38%;
+	padding: 5px;
+
+}
+
+.img{
+	width: 140px;
+	height: 175px;
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+	
+}
+
+
+.card-body{
+	padding: 8px;
+}
