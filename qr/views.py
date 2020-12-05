@@ -25,11 +25,12 @@ def get_details(request):
         mis=request.POST['mis_no']
         name_list=[i.name for i in Student.objects.all()]
         Mis_list=[i.Mis_no for i in Student.objects.all()]
-        if (name in name_list):
+        if name in name_list:
             return render(request,'qr/more_details.html' ,{
                 'msg':"Name exists"
             })
         elif mis in Mis_list:
+            print("ho raha hai kya")
             return render(request, 'qr/more_details.html',{
                 'msg':"Check your Mis No"
             })
@@ -45,16 +46,8 @@ def get_details(request):
 @login_required(login_url="/login")
 def get_qr(request):
     user=User.objects.get(username=request.user.username)
-    student=Student.objects.get(user=user)
-    data={'Name':student.name, 'Roll_no': student.Roll_no, "Mis_no": student.Mis_no, 'dept': student.Dept}
-    qr=QRCode(
-        version=3,
-        box_size=10,
-        border=4
-    )
-    make=qr.add_data(data)
     return render(request,"qr/get_qr.html", {
-        'student': student
+        'student': Student.objects.get(user=user)
     })
 
 def logout_view(request):
