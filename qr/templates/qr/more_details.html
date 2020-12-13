@@ -5,20 +5,31 @@ Login
 {% endblock %}
 
 {% block body %}
-{% if msg %}
-<b>{{ msg }}</b>
-{% endif %}
 
-<form action="{% url 'get_details' %}" method="POST">
-    {% csrf_token %}
-    <label for="Name">Name</label>
-    <input type="text" name="name" placeholder="Name" id=name required>
-    <label for="roll_no">Roll_no</label>
-    <input type="number" name="Roll_no" placeholder="Roll_no" id=roll required>
-    <label for="Dept">Department</label>
-    <input type="text" name="dept" placeholder="Department" id=dept required>
-    <label for="MisNo">Mis_no</label>
-    <input type="number" name="mis_no" placeholder="Mis_No" min="18121001" max="18121078" id=mis required>
-    <input type="submit" value="Register" class="btn btn-primary">
-</form>
+
+<div class="form-box">
+    <form action="{% url 'get_details' %}" method="POST" class="input-group">	
+        {% if msg %}
+        <b>{{ msg }}</b>	
+        {% endif %}	
+        <label for="Name"><b>Name</b></label>
+        <input type="text" name="name" placeholder="Name"  class="input-field" required>
+        <label for="roll_no"><b>Roll_no</b></label>
+        <input type="number" name="Roll_no" placeholder="Roll_no"  class="input-field" required>
+        <label for="Dept"><b>Department</b></label>
+        <select id="dept" name="Depth" class="input-field" >
+            <option value="Computer">Computer Engineering</option>
+            <option value="Electrical">Electrical Engineering</option>
+            <option value="Chemical">Chemical Engineering</option>
+            <option value="Mechanical">Mechanical Engineering</option>
+            <option value="Instrumentation">Instrumentation Engineering</option>
+        </select>
+        <!--<input type="text" name="dept" placeholder="Department" id=dept required>-->
+        <label for="MisNo"><b>Mis_no</b></label>
+        <input type="number" name="mis_no" placeholder="Mis_No" min="18121001" max="18121078"  class="input-field" required>
+        <label for="Sem"><b>Semester</b></label>
+        <input type="number" name="Semester" class='input-field' placeholder="Semester" min="1" max="8" required>
+        <input type="submit" value="Submit" class="submit-btn">		   
+    </form>
+</div>
 {% endblock %}

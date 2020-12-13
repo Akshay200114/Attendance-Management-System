@@ -1,0 +1,46 @@
+.form-box{
+    width: 350px;
+    height:500px;
+    position: relative;
+    background: rgb(22, 232, 200);
+    margin:8% auto;
+    padding: 5px;
+    overflow: hidden;
+    border-radius:25px;
+    
+}
+.input-group{
+    position: relative;
+    left: 20px;
+    width: 300px;
+    padding: 10px 0 30px ;
+    transition: .5s;
+}
+.input-field{
+    position: relative;
+    left: 0%;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    width: 100%;
+    padding: 10px 0 ;
+    margin: 3px 0 ;
+    border-left: 0 ;
+    border-top: 0 ;
+    border-right: 0 ;
+    border-bottom: 2.5px solid #fffaaa ;
+    outline: none;
+    background: transparent;
+}
+.submit-btn{
+    margin-top: 10px;
+    font-weight: bold;
+    width: 50% ;
+    padding: 10px 30px;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    background: linear-gradient(to right,#aaffdd,#ffeeef);
+    border:0;
+    outline: none;
+    border-radius: 30px;
+}

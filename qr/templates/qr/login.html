@@ -7,8 +7,8 @@ Login
 {% block body %}
 <form action="{% url 'login' %}" method="POST" style="margin: 40px;">
   {% csrf_token %}
-  {% if msg %}
-  {{ msg }}
+  {% if message %}
+  {{ message }}
   {% endif %}
   <div class="form-group">
     <label for="username">Username</label>

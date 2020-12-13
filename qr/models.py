@@ -15,6 +15,7 @@ class Student(models.Model):
     Dept=models.CharField(max_length=64)
     Mis_no=models.PositiveIntegerField()
     user=models.ForeignKey(User, on_delete=models.CASCADE)
+    sem=models.PositiveIntegerField(null=True)
     qr_code=models.ImageField(upload_to='qr_codes',blank =True)
 
     def __str__(self):
@@ -25,7 +26,7 @@ class Student(models.Model):
         canvas=Image.new('RGB',(320,320),'white')
         draw=ImageDraw.Draw(canvas)
         canvas.paste(qr_img)
-        f_name=f'qr_code-{self.name}'+'.png'
+        f_name=f'{self.name}'+'.png'
         buffer=BytesIO()
         canvas.save(buffer, 'PNG')
         self.qr_code.save(f_name, File(buffer), save=False)
@@ -36,4 +37,38 @@ class Student(models.Model):
     class Meta:
         ordering=['Roll_no']
 
+class Faculty(models.Model):
+    first_name=models.CharField(max_length=64)
+    last_name=models.CharField(max_length=64)
+    subjects=(
+        ["AOS", "Advanced Operating System"],
+        ["CN", "Computer Networks"],
+        ["WDL","Web Design Lab"],
+        ['MP', "Microprocessor"],
+        ["DBMS", "DataBase Management System"],
+        ["TCS", "Theory Of Computer Science"]
+    )
+    Subject=models.CharField(max_length=40, choices=subjects)
+    Unique_id= models.IntegerField()
+    user=models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
+    
+    def __str__(self):
+        return f"{self.first_name}"+ ' ' + f"{self.last_name}"
+
+    class Meta:
+        ordering=['first_name']
+
+class MarkAttendance(models.Model):
+    name=models.CharField(max_length=64)
+    roll_no=models.PositiveIntegerField()
+    subject=models.CharField(max_length=64)
+    Mis_no=models.PositiveIntegerField()
+    Department=models.CharField(max_length=64)
+    date=models.DateField()
+    time=models.TimeField()
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.name} "+ f"{self.Subject} "+ f"{self.Department}"
 

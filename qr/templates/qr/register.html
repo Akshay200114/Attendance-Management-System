@@ -7,9 +7,9 @@ Register
 {% block body %}
 <form action="register" method="POST" style="margin: 40px;">
   {% csrf_token %}
-  {% if msg %}
+  {% if message %}
     <div class="alert alert-danger" role="alert">
-      {{ msg }}
+      {{ message }}
     </div>
   {% endif %}
   <div class="form-group">
@@ -23,7 +23,7 @@ Register
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" minlength="8" maxlength="128" name="password" id="exampleInputPassword1">
+    <input type="password" class="form-control" minlength="4" maxlength="128" name="password" id="exampleInputPassword1">
   </div>
   <div class="form-group">
     <label for="exampleInputPassword2">Confirmation Password</label>

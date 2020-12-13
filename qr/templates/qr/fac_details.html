@@ -1,0 +1,34 @@
+{% extends 'qr/layout.html' %}
+
+{% block title %}
+Faculty Details
+{% endblock %}
+
+{% block body %}
+  
+<div class="form-box">
+    <form action="{% url 'fac_details' %}" method="POST" class="input-group">	
+        {% if msg %}
+        <b>{{ msg }}</b>	
+        {% endif %}	
+        <label for="f_Name"><b>First_Name</b></label>
+        <input type="text" name="fname" placeholder="First Name"  class="input-field" required>
+        <label for="L_name"><b>Last_Name</b></label>
+        <input type="text" name="lname" placeholder="Last Name"  class="input-field" required>
+        <label for="Subject"><b>Subject</b></label>
+        <select  name="sub" class="input-field" >
+            <option value="AOS">Advanced Operating System</option>
+            <option value="CN">Computer Networks</option>
+            <option value="WDL">Web Design Lab</option>
+            <option value="MP">Microprocessor</option>
+            <option value="DBMS">DataBase Management System</option>
+            <option value="TCS">Theory of Computer Science</option>
+        </select>
+        <!--<input type="text" name="dept" placeholder="Department" id=dept required>-->
+        <label for="Unique id "><b>UNIQUE ID</b></label>
+        <input type="number" name="unique_id" placeholder="Unique Id"   class="input-field" required>
+        <input type="submit" value="Submit" class="submit-btn">		   
+    </form>
+</div>
+
+{% endblock %}
