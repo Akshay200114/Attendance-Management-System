@@ -10,8 +10,9 @@ import cv2
 from pyzbar import pyzbar
 import numpy as np
 from django.utils import timezone
-from datetime import date, time
+import time
 
+attendance=[]
 
 @login_required(login_url="/login")
 def index(request):
@@ -56,20 +57,21 @@ def mark_attendance(request):
     user=User.objects.get(username=request.user.username)
     faculty=Faculty.objects.get(user=user)
     subject=faculty.Subject
-    attendance=[i.Mis_no for i in MarkAttendance.objects.all()]
 
     while True:
         _, frame= video.read()
-
         objectDecode= pyzbar.decode(frame)
         for content in objectDecode:
             data=content.data.decode("utf-8")
+            for i in MarkAttendance.objects.all():
+                attendance.append(i.Mis_no)
+                print(attendance)
             if data not in attendance:
                 student=Student.objects.get(Mis_no=data)
                 name=student.name
                 dept=student.Dept
                 roll=student.Roll_no
-                mark=MarkAttendance.objects.create(name=name,Mis_no=data, roll_no=roll, subject=subject, Department=dept, date=date.today(), time=time.hour, user=user)
+                mark=MarkAttendance.objects.create(name=name,Mis_no=data, roll_no=roll, subject=subject, Department=dept, datetime=timezone.now(), user=user)
                 mark.save()
             else:
                 msg="this Qrcode had been scanned before"

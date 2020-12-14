@@ -65,10 +65,9 @@ class MarkAttendance(models.Model):
     subject=models.CharField(max_length=64)
     Mis_no=models.PositiveIntegerField()
     Department=models.CharField(max_length=64)
-    date=models.DateField()
-    time=models.TimeField()
+    datetime=models.DateTimeField(null= True)
     user=models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.name} "+ f"{self.Subject} "+ f"{self.Department}"
+        return f"{self.name} "+ f"{self.subject} "+ f"{self.Department}"
 
