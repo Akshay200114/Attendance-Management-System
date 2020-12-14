@@ -73,6 +73,7 @@ def mark_attendance(request):
                 roll=student.Roll_no
                 mark=MarkAttendance.objects.create(name=name,Mis_no=data, roll_no=roll, subject=subject, Department=dept, datetime=timezone.now(), user=user)
                 mark.save()
+                time.sleep(5)
             else:
                 msg="this Qrcode had been scanned before"
                 print("This is the same qrcode scanned before")
